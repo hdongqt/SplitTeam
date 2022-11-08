@@ -75,7 +75,7 @@ export const changeErrorEditMatch = (value) => {
   return { type: CHANGE_ERROR_EDIT_MATCH, payload: value };
 };
 
-export const updateMatch = (id, formData) => async (dispatch, getState) => {
+export const editMatch = (id, formData) => async (dispatch, getState) => {
   dispatch({ type: CALL_API_PENDING });
   const { matchReducer } = getState();
   try {
@@ -85,7 +85,7 @@ export const updateMatch = (id, formData) => async (dispatch, getState) => {
       payload: response.data,
     });
     dispatch(getMatchs(matchReducer.searchMatchText, ""));
-    message.success("Delete match successfully !");
+    message.success(" Edit match successfully !");
   } catch (error) {
     dispatch({ type: GENERATE_TEAM_TO_MATCH_REJECTED });
     const messsageError = error.response?.data.error.message || error?.message;

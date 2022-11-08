@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeErrorEditMatch, setFormEditMatch, updateMatch } from "../../../actions/formMatchAction";
+import { changeErrorEditMatch, setFormEditMatch, editMatch } from "../../../actions/formMatchAction";
 import * as MatchEditStyle from "./MathEdit.style";
 
 const MathEdit = () => {
@@ -36,7 +36,7 @@ const MathEdit = () => {
       dispatch(changeErrorEditMatch(error));
     } else {
       const { id, ...form } = formData;
-      dispatch(updateMatch(id, form));
+      dispatch(editMatch(id, form));
     }
   };
 
@@ -68,7 +68,9 @@ const MathEdit = () => {
               onChangeInput(e);
             }}
           />
-          {errorMessage.description && <MatchEditStyle.FormMessageError>{errorMessage.description}</MatchEditStyle.FormMessageError>}
+          {errorMessage.description && (
+            <MatchEditStyle.FormMessageError>{errorMessage.description}</MatchEditStyle.FormMessageError>
+          )}
         </MatchEditStyle.FormGroup>
         <MatchEditStyle.FormGroup className="form-group form-group-btn">
           <MatchEditStyle.FormButton
