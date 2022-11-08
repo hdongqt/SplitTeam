@@ -59,6 +59,7 @@ export const generateTeamAPIFromListUser = (listIdSelect) => async (dispatch) =>
       type: GENERATE_TEAM_TO_MATCH_FULFILLED,
       payload: response.data,
     });
+    message.success("Generate team successfully !");
   } catch (error) {
     dispatch({ type: GENERATE_TEAM_TO_MATCH_REJECTED });
     const messsageError = error.response?.data.error.message || error?.message;
