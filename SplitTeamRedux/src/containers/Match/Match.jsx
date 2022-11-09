@@ -32,7 +32,8 @@ const Match = () => {
       width: "300px",
       render: (data) => {
         const nameSplit = data && data.name.split(" ");
-        return <span> {nameSplit && `${nameSplit[0]} ${dayjs(nameSplit[1]).format("HH:mm DD/MM/YYYY")}`}</span>;
+        const nameDate = nameSplit && nameSplit.length > 0 && nameSplit.pop();
+        return <span> {nameSplit && `${nameSplit.join(" ")} ${dayjs(nameDate).format("HH:mm DD/MM/YYYY")}`}</span>;
       },
     },
     {
