@@ -1,10 +1,6 @@
 import * as FormStyle from "./Form.style";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  backStepForm,
-  cancelCreateMatch,
-  submitcreateMatchAPI,
-} from "../../actions/formMatchAction";
+import { backStepForm, cancelCreateMatch, submitcreateMatchAPI } from "../../actions/formMatchAction";
 import { setUserSelect, getUsers } from "../../actions/userAction";
 import SelectCustom from "./../common/SelectCustom/SelectCustom";
 import Table from "./../common/Table/Table";
@@ -62,10 +58,10 @@ const StepLast = () => {
     {
       name: "",
       title: "Action",
-      width: "20px",
+      width: "120px",
       actions: [
         {
-          icon: () => "las la-trash-alt",
+          icon: "las la-trash-alt",
           bgColor: "#EC3737",
           color: "#fff",
           onClick: (item) => onClickDeleteUserSelect(item),
@@ -76,9 +72,7 @@ const StepLast = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { listUser, listUserSelect, teamGenerate } = useSelector(
-    (state) => state.matchFormReducer.formCreateMatch
-  );
+  const { listUser, listUserSelect, teamGenerate } = useSelector((state) => state.matchFormReducer.formCreateMatch);
   const { isLoading } = useSelector((state) => state.matchFormReducer);
 
   useEffect(() => {
@@ -87,19 +81,13 @@ const StepLast = () => {
   const [isFirstOpenListTeam, setIsFirstOpenListTeam] = useState(true);
 
   useEffect(() => {
-    if (
-      isFirstOpenListTeam &&
-      listUser.length > 0 &&
-      listUserSelect.length === 0
-    ) {
+    if (isFirstOpenListTeam && listUser.length > 0 && listUserSelect.length === 0) {
       dispatch(setUserSelect(listUser));
       setIsFirstOpenListTeam(false);
     }
   }, [dispatch, listUser, listUserSelect, isFirstOpenListTeam]);
 
-  const { formData } = useSelector(
-    (state) => state.matchFormReducer.formCreateMatch
-  );
+  const { formData } = useSelector((state) => state.matchFormReducer.formCreateMatch);
 
   const [selectUserSearch, setSelectUserSearch] = useState("SELECT_ALL");
 
@@ -136,9 +124,7 @@ const StepLast = () => {
   };
 
   const onClickDeleteUserSelect = (item) => {
-    const newListUserSelect = listUserSelect.filter(
-      (user) => user.id !== item.id
-    );
+    const newListUserSelect = listUserSelect.filter((user) => user.id !== item.id);
     dispatch(setUserSelect(newListUserSelect));
   };
 
@@ -179,22 +165,15 @@ const StepLast = () => {
         </div>
         {teamGenerate && (
           <div>
-            <span style={{ padding: "4px 0px", display: "inline-block" }}>
-              Team Counter-Terrorist
-            </span>
+            <span style={{ padding: "4px 0px", display: "inline-block" }}>Team Counter-Terrorist</span>
             <Table columns={columnUserGenerate} data={teamGenerate?.teamCT} />
-            <span style={{ padding: "4px 0px", display: "inline-block" }}>
-              Team Terrorist
-            </span>
+            <span style={{ padding: "4px 0px", display: "inline-block" }}>Team Terrorist</span>
             <Table columns={columnUserGenerate} data={teamGenerate?.teamT} />
           </div>
         )}
       </div>
       <FormStyle.ButtonGroupStep>
-        <FormStyle.FormButton
-          type="button"
-          onClick={() => dispatch(backStepForm())}
-        >
+        <FormStyle.FormButton type="button" onClick={() => dispatch(backStepForm())}>
           Back
         </FormStyle.FormButton>
         <FormStyle.FormButton

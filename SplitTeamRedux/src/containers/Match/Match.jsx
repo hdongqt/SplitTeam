@@ -28,22 +28,24 @@ const Match = () => {
 
   const columns = [
     {
-      name: "name",
       title: "Name",
+      width: "300px",
+      render: (data) => {
+        const nameSplit = data && data.name.split(" ");
+        return <span> {nameSplit && `${nameSplit[0]} ${dayjs(nameSplit[1]).format("HH:mm DD/MM/YYYY")}`}</span>;
+      },
     },
     {
       name: "state",
       title: "State",
     },
     {
-      name: "",
       title: "Created",
       render: (data) => {
         return <span>{dayjs(data.createdAt).format("HH:mm DD/MM/YYYY")}</span>;
       },
     },
     {
-      name: "",
       title: "Team Win",
       render: (data) => {
         const teamWin = data.teams.length > 0 && data.teams.find((item) => item.result === "WIN");
@@ -55,23 +57,23 @@ const Match = () => {
       },
     },
     {
-      name: "",
       title: "Action",
+      width: "120px",
       actions: [
         {
-          icon: () => "las la-edit",
+          icon: "las la-edit",
           color: "#fff",
           bgColor: "#40A9FF",
           onClick: (item) => handelSetFormMatchEdit(item),
         },
         {
-          icon: () => "las la-trash-alt",
+          icon: "las la-trash-alt",
           bgColor: "#EC3737",
           color: "#fff",
           onClick: (item) => handleDelete(item),
         },
         {
-          icon: () => "las la-arrow-right",
+          icon: "las la-arrow-right",
           onClick: (item) => navigate(`/matchs/${item.id}`),
         },
       ],
@@ -91,7 +93,14 @@ const Match = () => {
   };
 
   const handelSetFormMatchEdit = ({ id, name, description }) => {
-    dispatch(setFormEditMatch({ id, name, description }));
+    const nameSplit = name && name.split(" ");
+    dispatch(
+      setFormEditMatch({
+        id,
+        name: nameSplit && nameSplit.length > 0 ? nameSplit[0] : "",
+        description,
+      })
+    );
   };
 
   return (
@@ -101,7 +110,7 @@ const Match = () => {
         <MatchStyle.MatchAction>
           <MatchStyle.MatchButtonCreate to="/matchs/create">Create</MatchStyle.MatchButtonCreate>
           <MatchStyle.MatchSearch
-            placeholder="Input search..."
+            placeholder="Search matches..."
             value={fullTextSearch}
             onChange={(e) => handleChangeKeySearch(e.target.value)}
           />

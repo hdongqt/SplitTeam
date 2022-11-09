@@ -25,7 +25,7 @@ const validate = (req, res, next) => {
 };
 
 const createMatchValid = [
-  ...checkLength("name", "Name match", 5, 50),
+  ...checkLength("name", "Name match", 3, 70),
   ...checkLength("description", "Description", 5, 150),
   check("teamT")
     .isArray({ min: 1 })
@@ -46,7 +46,10 @@ const setTeamWinValid = [
 
 const editMatchValid = [
   ...idValid,
-  ...checkLength("name", "Name match", 5, 50),
+  check("name")
+    .trim()
+    .isLength({ min: 3, max: 95 })
+    .withMessage("Name match must be 3 to 70 characters long"),
   ...checkLength("description", "Description", 5, 150),
 ];
 

@@ -81,12 +81,15 @@ UserService.deleteUser = async (id) => {
   }
 };
 
-UserService.editUser = async (id, name) => {
+UserService.editUser = async (id, name, winRateDefault) => {
   const userFind = await user.findOne({
     where: { status: "active", id: id },
   });
   if (userFind) {
-    return user.update({ name: name }, { where: { id: id } });
+    return user.update(
+      { name: name, winRateDefault: winRateDefault },
+      { where: { id: id } }
+    );
   } else {
     return responseError("User not exits in the system", 400);
   }

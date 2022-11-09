@@ -10,12 +10,8 @@ import { useNavigate } from "react-router-dom";
 const StepFirst = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { errorMessage } = useSelector(
-    (state) => state.matchFormReducer.formCreateMatch
-  );
-  const { formData } = useSelector(
-    (state) => state.matchFormReducer.formCreateMatch
-  );
+  const { errorMessage } = useSelector((state) => state.matchFormReducer.formCreateMatch);
+  const { formData } = useSelector((state) => state.matchFormReducer.formCreateMatch);
   const onChange = (e) => {
     dispatch(changeValueForm({ [e.target.name]: e.target.value }));
   };
@@ -28,21 +24,13 @@ const StepFirst = () => {
   const onClickNextStep = () => {
     //validator
     let error = errorMessage;
-    if (
-      !formData.name ||
-      formData.name.length < 5 ||
-      formData.name.length > 50
-    ) {
+    if (!formData.name || formData.name.length < 3 || formData.name.length > 70) {
       error = {
         ...error,
-        name: "Name of match must be 5 to 50 characters long",
+        name: "Name of match must be 3 to 70 characters long",
       };
     }
-    if (
-      !formData.description ||
-      formData.description.length < 5 ||
-      formData.description.length > 150
-    ) {
+    if (!formData.description || formData.description.length < 5 || formData.description.length > 150) {
       error = {
         ...error,
         description: "Description of match must be 5 to 150 characters long",
@@ -60,29 +48,14 @@ const StepFirst = () => {
       <FormStyle.FormStyle>
         <FormStyle.FormGroup className="form-group">
           <FormStyle.FormLabel>Name match:</FormStyle.FormLabel>
-          <FormStyle.TextInput
-            type="text"
-            name="name"
-            onChange={(e) => onChange(e)}
-            value={formData.name}
-          />
-          {errorMessage.name && (
-            <FormStyle.FormMessageError>
-              {errorMessage.name}
-            </FormStyle.FormMessageError>
-          )}
+          <FormStyle.TextInput type="text" name="name" onChange={(e) => onChange(e)} value={formData.name} />
+          {errorMessage.name && <FormStyle.FormMessageError>{errorMessage.name}</FormStyle.FormMessageError>}
         </FormStyle.FormGroup>
         <FormStyle.FormGroup className="form-group">
           <FormStyle.FormLabel>Description:</FormStyle.FormLabel>
-          <FormStyle.FormTextArea
-            name="description"
-            onChange={(e) => onChange(e)}
-            value={formData.description}
-          />
+          <FormStyle.FormTextArea name="description" onChange={(e) => onChange(e)} value={formData.description} />
           {errorMessage.description && (
-            <FormStyle.FormMessageError>
-              {errorMessage.description}
-            </FormStyle.FormMessageError>
+            <FormStyle.FormMessageError>{errorMessage.description}</FormStyle.FormMessageError>
           )}
         </FormStyle.FormGroup>
         <FormStyle.ButtonGroupStep>
@@ -96,12 +69,7 @@ const StepFirst = () => {
           >
             Cancel
           </FormStyle.FormButton>
-          <FormStyle.FormButton
-            type="button"
-            bgColor={"#0065f7de"}
-            color={"#fff"}
-            onClick={() => onClickNextStep()}
-          >
+          <FormStyle.FormButton type="button" bgColor={"#0065f7de"} color={"#fff"} onClick={() => onClickNextStep()}>
             Next
           </FormStyle.FormButton>
         </FormStyle.ButtonGroupStep>

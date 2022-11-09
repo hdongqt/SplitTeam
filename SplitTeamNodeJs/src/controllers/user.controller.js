@@ -58,8 +58,8 @@ const deleteUser = async (req, res, next) => {
 const editUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const { name } = req.body;
-    const result = await UserService.editUser(id, name);
+    const { name, winRateDefault } = req.body;
+    const result = await UserService.editUser(id, name, winRateDefault);
     if (result && result.hasOwnProperty("message")) {
       return next(result);
     } else {

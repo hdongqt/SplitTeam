@@ -7,6 +7,7 @@ import * as message from "../../utils/message";
 import { changeTextSearchUser, deleteUser, getUsers } from "../../actions/userAction";
 import UserAction from "./../../components/Form/UserSave/UserSave";
 import { changeValueFormUserAction, openFormCreateUser } from "../../actions/formUserAction";
+import { round } from "lodash";
 
 const User = () => {
   let navigate = useNavigate();
@@ -73,19 +74,19 @@ const User = () => {
       title: "Action",
       actions: [
         {
-          icon: () => "las la-edit",
+          icon: "las la-edit",
           color: "#fff",
           bgColor: "#40A9FF",
           onClick: (item) => handleSetUserEdit(item),
         },
         {
-          icon: () => "las la-trash-alt",
+          icon: "las la-trash-alt",
           bgColor: "#EC3737",
           color: "#fff",
           onClick: (item) => handleDelete(item),
         },
         {
-          icon: () => "las la-arrow-right",
+          icon: "las la-arrow-right",
           onClick: (item) => navigate(`/users/${item.id}`),
         },
       ],
@@ -104,7 +105,14 @@ const User = () => {
   };
 
   const handleSetUserEdit = (user) => {
-    dispatch(changeValueFormUserAction({ id: user.id, username: user.username, name: user.name }));
+    dispatch(
+      changeValueFormUserAction({
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        winRateDefault: round(user.winRateDefault, 2),
+      })
+    );
   };
 
   const handleOpenFormCreate = () => {
@@ -119,7 +127,7 @@ const User = () => {
           <MatchStyle.MatchAction>
             <MatchStyle.MatchButtonCreate onClick={handleOpenFormCreate}>Create</MatchStyle.MatchButtonCreate>
             <MatchStyle.MatchSearch
-              placeholder="Input search..."
+              placeholder="Search users..."
               value={fullTextSearch}
               onChange={(e) => handleChangeKeySearch(e.target.value)}
             />

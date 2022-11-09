@@ -23,11 +23,15 @@ const Table = ({ columns, data }) => {
           ? data.map((item, indexData) => {
               return (
                 <tr key={item.id}>
-                  <td>{indexData + 1}</td>
+                  <td style={{ paddingLeft: "6px" }}>{indexData + 1}</td>
                   {columns &&
                     columns.map((column, index) => {
                       return column?.actions ? (
-                        <td className="action-column" key={item.id + index + "td"}>
+                        <TableStyle.TableColumn
+                          className="action-column"
+                          width={column?.width}
+                          key={item.id + index + "td"}
+                        >
                           {column.actions.map((action, indexAction) => {
                             return (
                               <TableStyle.TableButton
@@ -39,16 +43,16 @@ const Table = ({ columns, data }) => {
                               >
                                 <TableStyle.TableButtonIcon
                                   color={action?.color}
-                                  className={action?.icon ? action.icon() : ""}
+                                  className={action?.icon ? action.icon : ""}
                                 ></TableStyle.TableButtonIcon>
                               </TableStyle.TableButton>
                             );
                           })}
-                        </td>
+                        </TableStyle.TableColumn>
                       ) : (
-                        <td key={item.id + index + "td"}>
+                        <TableStyle.TableColumn width={column?.width} key={item.id + index + "td"}>
                           {item[column.name] ? item[column.name] : column?.render ? column?.render(item) : ""}
-                        </td>
+                        </TableStyle.TableColumn>
                       );
                     })}
                 </tr>

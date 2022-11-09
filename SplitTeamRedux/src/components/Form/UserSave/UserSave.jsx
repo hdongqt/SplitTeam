@@ -38,11 +38,7 @@ const UserAction = () => {
         name: "Name user must be 2 to 30 characters long",
       };
     }
-    if (
-      !formData.id &&
-      formData?.winRateDefault !== "" &&
-      (formData?.winRateDefault < 0 || formData.winRateDefault > 100)
-    ) {
+    if (formData?.winRateDefault !== "" && (formData?.winRateDefault < 0 || formData.winRateDefault > 100)) {
       error = {
         ...error,
         winRateDefault: "Win rate default must be from 0 to 100",
@@ -54,7 +50,7 @@ const UserAction = () => {
     } else {
       const { id, ...form } = formData;
       if (id) {
-        dispatch(editUser(id, { name: form.name }));
+        dispatch(editUser(id, { name: form.name, winRateDefault: form.winRateDefault }));
       } else {
         dispatch(createUser(form));
       }
@@ -78,7 +74,9 @@ const UserAction = () => {
                   onChangeInput(e);
                 }}
               />
-              {errorMessage.username && <UserSaveStyle.FormMessageError>{errorMessage.username}</UserSaveStyle.FormMessageError>}
+              {errorMessage.username && (
+                <UserSaveStyle.FormMessageError>{errorMessage.username}</UserSaveStyle.FormMessageError>
+              )}
             </UserSaveStyle.FormGroup>
           )}
           <UserSaveStyle.FormGroup className="form-group">
@@ -94,22 +92,24 @@ const UserAction = () => {
             />
             {errorMessage.name && <UserSaveStyle.FormMessageError>{errorMessage.name}</UserSaveStyle.FormMessageError>}
           </UserSaveStyle.FormGroup>
-          {!formData?.id && (
-            <UserSaveStyle.FormGroup className="form-group">
-              <UserSaveStyle.FormLabel>Win Rate</UserSaveStyle.FormLabel>
-              <UserSaveStyle.TextInput
-                type="number"
-                placeholder="Please enter win rate..."
-                name="winRateDefault"
-                maxlength="4"
-                value={formData.winRateDefault}
-                onChange={(e) => {
-                  onChangeInput(e);
-                }}
-              />
-              {errorMessage.winRateDefault && <UserSaveStyle.FormMessageError>{errorMessage.winRateDefault}</UserSaveStyle.FormMessageError>}
-            </UserSaveStyle.FormGroup>
-          )}
+          <UserSaveStyle.FormGroup className="form-group">
+            <UserSaveStyle.FormLabel>
+              Win Rate Default (<span style={{ color: "red" }}>%</span>)
+            </UserSaveStyle.FormLabel>
+            <UserSaveStyle.TextInput
+              type="number"
+              placeholder="Please enter win rate..."
+              name="winRateDefault"
+              maxlength="4"
+              value={formData.winRateDefault}
+              onChange={(e) => {
+                onChangeInput(e);
+              }}
+            />
+            {errorMessage.winRateDefault && (
+              <UserSaveStyle.FormMessageError>{errorMessage.winRateDefault}</UserSaveStyle.FormMessageError>
+            )}
+          </UserSaveStyle.FormGroup>
           <UserSaveStyle.FormGroup className="form-group form-group-btn">
             <UserSaveStyle.FormButton
               type="submit"

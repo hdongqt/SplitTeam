@@ -92,3 +92,7 @@ export const editMatch = (id, formData) => async (dispatch, getState) => {
     message.error(messsageError);
   }
 };
+
+export const clearFormEditMatch = () => {
+  return { type: "CLEAR_FORM_EDIT_MATCH" };
+};

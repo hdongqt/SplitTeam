@@ -98,12 +98,14 @@ MatchService.createMatch = async (name, description, teamCT, teamT) => {
   const t = await db.sequelize.transaction();
   try {
     //create transaction insert into multiple table (matches,team,users)
+    const getDateNow = new Date().toISOString();
     const [matchCreate, created] = await match.findOrCreate({
-      where: { name: name.trim() },
+      where: { name: name.trim() + getDateNow },
       defaults: {
-        name: name,
+        name: name + " " + getDateNow,
         state: "INPROGRESS",
         description: description,
+        createdAt: getDateNow,
       },
       transaction: t,
     });
@@ -160,9 +162,10 @@ MatchService.editMatch = async (id, name, description) => {
   const matchFind = await match.findOne({
     where: { status: "active", id: id },
   });
-  if (!matchFind) {
+  const matchDateCreate = matchFind.name.split(" ").pop();
+  if (matchFind) {
     return match.update(
-      { name: name, description: description },
+      { name: `${name} ${matchDateCreate}`, description: description },
       { where: { id: id } }
     );
   }

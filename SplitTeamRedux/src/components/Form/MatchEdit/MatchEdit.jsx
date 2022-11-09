@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeErrorEditMatch, setFormEditMatch, editMatch } from "../../../actions/formMatchAction";
+import {
+  changeErrorEditMatch,
+  setFormEditMatch,
+  editMatch,
+  clearFormEditMatch,
+} from "../../../actions/formMatchAction";
 import * as MatchEditStyle from "./MathEdit.style";
 
 const MathEdit = () => {
@@ -7,7 +12,7 @@ const MathEdit = () => {
   const { formData, errorMessage } = useSelector((state) => state.matchFormReducer.formEditMatch);
 
   const handleCloseForm = () => {
-    dispatch(setFormEditMatch({ id: "", name: "", description: "" }));
+    dispatch(clearFormEditMatch());
   };
 
   const onChangeInput = (e) => {
@@ -19,10 +24,10 @@ const MathEdit = () => {
   const onClickCreateForm = (e) => {
     e.preventDefault();
     let error = errorMessage;
-    if (!formData.name || formData.name.length < 5 || formData.name.length > 50) {
+    if (!formData.name || formData.name.length < 3 || formData.name.length > 70) {
       error = {
         ...error,
-        name: "Name of match must be 5 to 50 characters long",
+        name: "Name of match must be 3 to 70 characters long",
       };
     }
     if (!formData.description || formData.description.length < 5 || formData.description.length > 150) {
@@ -43,14 +48,14 @@ const MathEdit = () => {
   return (
     <MatchEditStyle.FormOverlay onClick={(e) => handleCloseForm()}>
       <MatchEditStyle.Form onClick={(e) => e.stopPropagation()}>
-        <h3> Edit Match</h3>
+        <h3>Edit Match</h3>
         <MatchEditStyle.FormGroup className="form-group">
           <MatchEditStyle.FormLabel>Name</MatchEditStyle.FormLabel>
           <MatchEditStyle.TextInput
             type="text"
             placeholder="Please enter name..."
             name="name"
-            value={formData.name}
+            value={formData?.name}
             onChange={(e) => {
               onChangeInput(e);
             }}

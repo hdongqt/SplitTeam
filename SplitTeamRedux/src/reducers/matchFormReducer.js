@@ -16,6 +16,7 @@ import {
   CHANGE_ERROR_EDIT_MATCH,
   EDIT_MATCH_REJECTED,
   EDIT_MATCH_FULFILLED,
+  CLEAR_FORM_EDIT_MATCH,
 } from "../constants/actionType";
 
 const initialState = {
@@ -160,6 +161,21 @@ export const matchFormReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    case CLEAR_FORM_EDIT_MATCH:
+      return {
+        ...state,
+        formEditMatch: {
+          formData: {
+            id: "",
+            name: "",
+            description: "",
+          },
+          errorMessage: {
+            name: "",
+            description: "",
+          },
+        },
       };
     default:
       return state;

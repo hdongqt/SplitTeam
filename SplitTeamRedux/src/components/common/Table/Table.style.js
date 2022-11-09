@@ -7,19 +7,10 @@ const Table = styled.table`
   border-collapse: collapse;
   border: 2px solid rgb(170 174 174 / 34%);
   & tr {
-    & td {
-      text-align: left;
-      font-size: 16px;
-      padding: 10px 6px;
-      &.action-column {
-        display: flex;
-        column-gap: 6px;
-      }
-    }
-    &:nth-child(even) td {
+    &:nth-child(even) {
       background-color: rgb(250, 250, 250);
     }
-    &:nth-child(odd) td {
+    &:nth-child(odd) {
       background-color: rgb(245, 245, 245);
     }
   }
@@ -57,6 +48,19 @@ const TableColumnHeader = styled.th`
   border: 1px solid rgb(190, 190, 190);
   padding: 10px 20px;
   background-color: rgb(235, 235, 235);
+  word-break: break-word;
 `;
 
-export { Table, TableAction, TableColumnHeader, TableButton, TableButtonIcon };
+const TableColumn = styled.td`
+  width: ${(props) => props.width && props.width};
+  text-align: left;
+  font-size: 16px;
+  padding: 10px 6px;
+  word-break: break-word;
+  &.action-column {
+    display: flex;
+    column-gap: 6px;
+  }
+`;
+
+export { Table, TableAction, TableColumnHeader, TableColumn, TableButton, TableButtonIcon };

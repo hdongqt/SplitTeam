@@ -16,7 +16,7 @@
                 "name": {
                     "allowNull": false,
                     "field": "name",
-                    "seqType": "Sequelize.STRING(100)"
+                    "seqType": "Sequelize.STRING(50)"
                 },
                 "state": {
                     "allowNull": false,
@@ -206,8 +206,8 @@
             "indexes": []
         }
     },
-    "path": "G:\\Counter\\SplitTeamNodeJs\\migrations\\_current.json",
-    "backupPath": "G:\\Counter\\SplitTeamNodeJs\\migrations\\_current_bak.json",
-    "exists": true,
-    "revision": 2
+    "path": "G:\\Counter\\SplitTeam\\migrations\\_current.json",
+    "backupPath": "G:\\Counter\\SplitTeam\\migrations\\_current_bak.json",
+    "exists": false,
+    "revision": 1
 }
