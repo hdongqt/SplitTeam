@@ -17,38 +17,40 @@ const StepLast = () => {
       title: "Name",
     },
     {
-      name: "",
       title: "Amount Match",
       render: (data) => {
         return <span>{data.amountMatch}</span>;
       },
     },
     {
-      name: "",
-      title: "Amount Finish",
+      title: "Finish",
       render: (data) => {
         return <span>{data.amountMatchFinish}</span>;
       },
     },
     {
-      name: "",
-      title: "Amount Win",
+      title: "Win",
       render: (data) => {
         return <span>{data.amountWin}</span>;
       },
     },
     {
-      name: "",
-      title: "Amount Lose",
+      title: "Lose",
       render: (data) => {
         return <span>{data.amountLose}</span>;
       },
     },
     {
-      name: "",
       title: "Win Rate",
       render: (data) => {
         return <span>{data.winRate} % </span>;
+      },
+    },
+    {
+      title: "Win Rate Default",
+      width: "150px",
+      render: (data) => {
+        return <span>{data.winRateDefault !== null ? `${data.winRateDefault} %` : ""}</span>;
       },
     },
   ];
@@ -165,14 +167,16 @@ const StepLast = () => {
         </div>
         {teamGenerate && (
           <div>
-            <span style={{ padding: "4px 0px", display: "inline-block" }}>Team Counter-Terrorist</span>
+            <span style={{ padding: "10px 0px", display: "inline-block", fontWeight: "bold" }}>
+              Team Counter-Terrorist
+            </span>
             <Table columns={columnUserGenerate} data={teamGenerate?.teamCT} />
-            <span style={{ padding: "4px 0px", display: "inline-block" }}>Team Terrorist</span>
+            <span style={{ padding: "10px 0px", display: "inline-block", fontWeight: "bold" }}>Team Terrorist</span>
             <Table columns={columnUserGenerate} data={teamGenerate?.teamT} />
           </div>
         )}
       </div>
-      <FormStyle.ButtonGroupStep>
+      <FormStyle.ButtonGroupStep style={{ marginLeft: "-40px" }}>
         <FormStyle.FormButton type="button" onClick={() => dispatch(backStepForm())}>
           Back
         </FormStyle.FormButton>

@@ -49,10 +49,11 @@ const UserAction = () => {
       dispatch(changeErrorFormActionUser(error));
     } else {
       const { id, ...form } = formData;
+      const winRateForm = form.winRateDefault !== "" ? +form.winRateDefault : "";
       if (id) {
-        dispatch(editUser(id, { name: form.name, winRateDefault: form.winRateDefault }));
+        dispatch(editUser(id, { name: form.name, winRateDefault: winRateForm }));
       } else {
-        dispatch(createUser(form));
+        dispatch(createUser({ ...form, winRateDefault: winRateForm }));
       }
     }
   };

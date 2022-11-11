@@ -43,21 +43,21 @@ const User = () => {
     },
     {
       name: "",
-      title: "Amount Finish",
+      title: "Finish",
       render: (data) => {
         return <span>{data.amountMatchFinish}</span>;
       },
     },
     {
       name: "",
-      title: "Amount Win",
+      title: "Win",
       render: (data) => {
         return <span>{data.amountWin}</span>;
       },
     },
     {
       name: "",
-      title: "Amount Lose",
+      title: "Lose",
       render: (data) => {
         return <span>{data.amountLose}</span>;
       },
@@ -67,6 +67,12 @@ const User = () => {
       title: "Win Rate",
       render: (data) => {
         return <span>{data.winRate} % </span>;
+      },
+    },
+    {
+      title: "Win Rate Default",
+      render: (data) => {
+        return <span>{data.winRateDefault !== null ? `${round(data.winRateDefault, 2)} %` : ""}</span>;
       },
     },
     {
@@ -110,7 +116,7 @@ const User = () => {
         id: user.id,
         username: user.username,
         name: user.name,
-        winRateDefault: round(user.winRateDefault, 2),
+        winRateDefault: user.winRateDefault !== null ? round(user.winRateDefault, 2) : "",
       })
     );
   };
